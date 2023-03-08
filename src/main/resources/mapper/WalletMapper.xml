@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.WalletMapper">
+
+    <select id="query" resultType="Wallet" parameterType="Integer">
+        select amount
+        from wallet
+        where cardId=#{cardId}
+    </select>
+
+    <update id="spend" >
+        update wallet
+        set amount=amount - #{num}
+        where cardId=#{cardId}
+    </update>
+
+    <update id="back" >
+        update wallet
+        set amount=amount + #{num}
+        where cardId=#{cardId}
+    </update>
+
+    <select id="bill" resultType="Bill" parameterType="Integer">
+        select *
+        from bill
+        where cardId=#{cardId}
+    </select>
+
+    <insert id="addBill" parameterType="Bill">
+        insert into bill
+        (cardId,amount ,type)
+        values(#{cardId},#{amount},#{type})
+    </insert>
+</mapper>
+
